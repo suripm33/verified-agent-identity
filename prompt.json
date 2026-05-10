@@ -1,20 +1,38 @@
 [
   {
-    "role": "system",
-    "content": {{ system_message | dump }}
+    "role": "user",
+    "parts": [
+      {
+        "text": {{ system_message | dump }}
+      }
+    ]
   },
+
   {% for completion in _conversation %}
   {
     "role": "user",
-    "content": {{ completion.input | dump }}
+    "parts": [
+      {
+        "text": {{ completion.input | dump }}
+      }
+    ]
   },
   {
-    "role": "assistant",
-    "content": {{ completion.output | dump }}
+    "role": "model",
+    "parts": [
+      {
+        "text": {{ completion.output | dump }}
+      }
+    ]
   },
   {% endfor %}
+
   {
     "role": "user",
-    "content": {{ message | dump }}
+    "parts": [
+      {
+        "text": {{ message | dump }}
+      }
+    ]
   }
 ]
